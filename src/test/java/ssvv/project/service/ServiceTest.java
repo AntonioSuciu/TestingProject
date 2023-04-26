@@ -1,18 +1,18 @@
-package service;
+package ssvv.project.service;
 
+import org.junit.Test;
 import ssvv.project.domain.Student;
 import ssvv.project.repository.NotaXMLRepo;
 import ssvv.project.repository.StudentXMLRepo;
 import ssvv.project.repository.TemaXMLRepo;
-import ssvv.project.service.Service;
 import ssvv.project.validation.NotaValidator;
 import ssvv.project.validation.StudentValidator;
 import ssvv.project.validation.TemaValidator;
 import ssvv.project.validation.ValidationException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-class ServiceTest {
+public class ServiceTest {
 
     StudentXMLRepo studentXMLRepo = new StudentXMLRepo( "src/test/resources/fisiere/Studenti.xml");
     StudentValidator studentValidator = new StudentValidator();
@@ -27,8 +27,8 @@ class ServiceTest {
 
     Service testService = new Service(studentXMLRepo, studentValidator,
             temaXMLRepo, temaValidator,  notaXMLRepo,  notaValidator);
-    @org.junit.jupiter.api.Test
-    void addStudentPositiveIDs() {
+    @Test
+    public void addStudentPositiveIDs() {
         Student student1 = new Student("1", "Nume Student 1", 123,"email1@abc.com");
         Student student2 = new Student("2", "Nume Student 2", 123,"email2@abc.com");
         Student student3 = new Student("3", "Nume Student 3", 123,"email3@abc.com");
@@ -40,8 +40,8 @@ class ServiceTest {
 
     }
 
-    @org.junit.jupiter.api.Test
-    void addStudentNegativeIDs() {
+    @Test
+    public void addStudentNegativeIDs() {
         Student studentmin1 = new Student("-1", "Nume Student -1", 123,"email1@abc.com");
         Student studentmin2 = new Student("-2", "Nume Student -2", 123,"email2@abc.com");
         assertEquals(testService.addStudent(studentmin1), studentmin1);
@@ -50,16 +50,16 @@ class ServiceTest {
 
     }
 
-    @org.junit.jupiter.api.Test
-    void addStudentNullIDs() {
+    @Test
+    public void addStudentNullIDs() {
         Student studentNull = new Student("", "Nume Student Null", 123,"email1@abc.com");
         assertThrows(ValidationException.class, () -> testService.addStudent(studentNull));
 
 
     }
 
-    @org.junit.jupiter.api.Test
-    void addStudentBVA()
+    @Test
+    public void addStudentBVA()
     {
         Student student1 = new Student("1", "Nume Student 1", 123,"email1@abc.com");
         Student studentNull = new Student("", "Nume Student Null", 123,"email1@abc.com");
