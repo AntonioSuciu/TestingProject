@@ -2,6 +2,7 @@ package ssvv.project.service;
 
 import org.junit.Test;
 import ssvv.project.domain.Student;
+import ssvv.project.domain.Tema;
 import ssvv.project.repository.NotaXMLRepo;
 import ssvv.project.repository.StudentXMLRepo;
 import ssvv.project.repository.TemaXMLRepo;
@@ -70,4 +71,49 @@ public class ServiceTest {
         assertEquals(testService.addStudent(studentmin1), studentmin1);
     }
 
+   /// ----------------------------------------------------------------
+
+    @Test
+    public void addGoodTema()
+    {
+        Tema tema = new Tema("3","WBT", 8, 6);
+        assertEquals(testService.addTema(tema), tema);
+    }
+
+
+    @Test
+    public void addTemaWrongID()
+    {
+        Tema tema = new Tema("","", 0, 16);
+        assertThrows(ValidationException.class, () -> testService.addTema(tema));
+    }
+
+    @Test
+    public void addTemaWrongDescription()
+    {
+        Tema tema = new Tema("8","", 0, 16);
+        assertThrows(ValidationException.class, () -> testService.addTema(tema));
+    }
+
+    @Test
+    public void addTemaWrongDeadline()
+    {
+        Tema tema = new Tema("8","HW 8", 0, 16);
+        assertThrows(ValidationException.class, () -> testService.addTema(tema));
+    }
+
+    @Test
+    public void addTemaWrongRecieving()
+    {
+        Tema tema = new Tema("8","HW 8", 9, 16);
+        assertThrows(ValidationException.class, () -> testService.addTema(tema));
+    }
+
+
+    @Test
+    public void addTemaWrongDeadlineRecieving()
+    {
+        Tema tema = new Tema("18","HW 18", 3, 10 );
+        assertThrows(ValidationException.class, () -> testService.addTema(tema));
+    }
 }
